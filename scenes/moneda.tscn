@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bs5xrhcae6eil"]
+
+[ext_resource type="Texture2D" uid="uid://b568sc0y68a51" path="res://assets/sprites/prueba moneda.png" id="1_nghqc"]
+[ext_resource type="Script" uid="uid://blpg1vj0v2cfd" path="res://scripts/moneda.gd" id="1_r2l3b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4iok"]
+atlas = ExtResource("1_nghqc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8cxyx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4iok")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mymv"]
+radius = 9.0
+
+[node name="moneda" type="Area2D" unique_id=771309985]
+collision_mask = 2
+script = ExtResource("1_r2l3b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=352918332]
+sprite_frames = SubResource("SpriteFrames_8cxyx")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=220441885]
+shape = SubResource("CircleShape2D_0mymv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bh3qxp5ykpyou"]
+
+[ext_resource type="Texture2D" uid="uid://cam84vcrohp0f" path="res://assets/sprites/prueba persoanje controlable.png" id="1_4e5bt"]
+[ext_resource type="Script" uid="uid://kqb62p4s4p8o" path="res://scripts/personaje.gd" id="1_ltgau"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltgau"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0mymv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltgau")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mymv"]
+radius = 25.495098
+
+[node name="Personaje" type="CharacterBody2D" unique_id=2127556587]
+z_index = 5
+collision_layer = 2
+script = ExtResource("1_ltgau")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229679742]
+position = Vector2(2, 2)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_0mymv")
+animation = &"idle"
+frame_progress = 0.88952553
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324054564]
+position = Vector2(1, 2)
+scale = Vector2(0.25, 0.25)
+shape = SubResource("CircleShape2D_0mymv")
