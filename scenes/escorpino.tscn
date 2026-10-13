@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bvdtfleefqp4s"]
+
+[ext_resource type="Script" uid="uid://fboj04o7q4c" path="res://scenes/escorpino.gd" id="1_2sub6"]
+[ext_resource type="Texture2D" uid="uid://tv84ksavchki" path="res://assets/sprites/enemigo prueba.png" id="1_cti37"]
+[ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://scenes/killzone.tscn" id="2_2sub6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pougv"]
+atlas = ExtResource("1_cti37")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jyaov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pougv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jyaov"]
+radius = 7.0
+
+[node name="escorpino" type="Node2D" unique_id=570738720]
+script = ExtResource("1_2sub6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=144166996]
+sprite_frames = SubResource("SpriteFrames_jyaov")
+
+[node name="killzone" parent="." unique_id=278305274 instance=ExtResource("2_2sub6")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=1396967519]
+position = Vector2(-1, 2)
+shape = SubResource("CircleShape2D_jyaov")
+
+[node name="RayCastLeft" type="RayCast2D" parent="killzone" unique_id=1019573843]
+target_position = Vector2(-9, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="killzone" unique_id=1692979190]
+target_position = Vector2(8, 0)
