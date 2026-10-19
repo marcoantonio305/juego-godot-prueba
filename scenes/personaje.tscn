@@ -1,27 +1,40 @@
 [gd_scene format=3 uid="uid://bh3qxp5ykpyou"]
 
-[ext_resource type="Texture2D" uid="uid://cam84vcrohp0f" path="res://assets/sprites/prueba persoanje controlable.png" id="1_4e5bt"]
 [ext_resource type="Script" uid="uid://kqb62p4s4p8o" path="res://scripts/personaje.gd" id="1_ltgau"]
-[ext_resource type="Texture2D" uid="uid://bw34o7715fq2k" path="res://assets/sprites/prueba salto.png" id="3_auoqv"]
-[ext_resource type="Texture2D" uid="uid://betrefc2mwcn7" path="res://assets/sprites/Sprite-0001.png" id="4_hrhk4"]
+[ext_resource type="Texture2D" uid="uid://baov67u8ssm67" path="res://assets/sprites/prueba personaje res 16.png" id="2_auoqv"]
+[ext_resource type="Texture2D" uid="uid://dq1u2sqde1hx4" path="res://assets/sprites/prueba personaje res 16 disparo.png" id="2_hrhk4"]
+[ext_resource type="Texture2D" uid="uid://q0dxqap3b4p0" path="res://assets/sprites/saltar prueba res 16.png" id="3_auoqv"]
+[ext_resource type="Texture2D" uid="uid://cds08pvii7qyk" path="res://assets/sprites/correr prueba 16 res.png" id="4_hrhk4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ltgau"]
-atlas = ExtResource("1_4e5bt")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdnqt"]
+atlas = ExtResource("2_hrhk4")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrhk4"]
+atlas = ExtResource("2_auoqv")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1pmb"]
 atlas = ExtResource("3_auoqv")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4h8dm"]
 atlas = ExtResource("4_hrhk4")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0mymv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ltgau")
+"texture": SubResource("AtlasTexture_rdnqt")
+}],
+"loop": 1,
+"name": &"disparar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrhk4")
 }],
 "loop": 1,
 "name": &"idle",
@@ -54,9 +67,8 @@ script = ExtResource("1_ltgau")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229679742]
 position = Vector2(2, 2)
-scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_0mymv")
-animation = &"jump"
+animation = &"disparar"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324054564]
 position = Vector2(1, 2)

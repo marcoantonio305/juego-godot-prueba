@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c14j4tvjlr5x5"]
+
+[ext_resource type="Texture2D" uid="uid://csieuke8t23od" path="res://assets/sprites/bala.png" id="1_mkf8s"]
+[ext_resource type="Script" uid="uid://bu48c3qyr2dnc" path="res://scripts/bullet.gd" id="1_y25gk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mymv"]
+
+[node name="bullet" type="Area2D" unique_id=796277530]
+z_index = 1
+script = ExtResource("1_y25gk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146515393]
+shape = SubResource("CircleShape2D_0mymv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=551071240]
+texture = ExtResource("1_mkf8s")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

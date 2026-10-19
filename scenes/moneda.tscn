@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b568sc0y68a51" path="res://assets/sprites/prueba moneda.png" id="1_nghqc"]
 [ext_resource type="Script" uid="uid://blpg1vj0v2cfd" path="res://scripts/moneda.gd" id="1_r2l3b"]
+[ext_resource type="AudioStream" uid="uid://bdk1m62px874g" path="res://assets/sounds/Grabación-_31_.mp3" id="3_lqt2j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4iok"]
 atlas = ExtResource("1_nghqc")
@@ -21,6 +22,104 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_0mymv"]
 radius = 9.0
 
+[sub_resource type="Animation" id="Animation_lrxkp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickup Sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ntwu4"]
+resource_name = "pickup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickup Sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rpdy3"]
+_data = {
+&"RESET": SubResource("Animation_lrxkp"),
+&"pickup": SubResource("Animation_ntwu4")
+}
+
 [node name="moneda" type="Area2D" unique_id=771309985]
 collision_mask = 2
 script = ExtResource("1_r2l3b")
@@ -31,5 +130,12 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=220441885]
 shape = SubResource("CircleShape2D_0mymv")
+
+[node name="Pickup Sound" type="AudioStreamPlayer2D" parent="." unique_id=1563327201]
+stream = ExtResource("3_lqt2j")
+bus = &"sfx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1544570807]
+libraries/ = SubResource("AnimationLibrary_rpdy3")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bvdtfleefqp4s"]
 
-[ext_resource type="Script" uid="uid://fboj04o7q4c" path="res://scenes/escorpino.gd" id="1_2sub6"]
+[ext_resource type="Script" uid="uid://fboj04o7q4c" path="res://scripts/escorpino.gd" id="1_2sub6"]
 [ext_resource type="Texture2D" uid="uid://tv84ksavchki" path="res://assets/sprites/enemigo prueba.png" id="1_cti37"]
-[ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://scenes/killzone.tscn" id="2_2sub6"]
+[ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://killzone.tscn" id="2_2sub6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pougv"]
 atlas = ExtResource("1_cti37")
@@ -39,3 +39,5 @@ target_position = Vector2(-9, 0)
 
 [node name="RayCastRight" type="RayCast2D" parent="killzone" unique_id=1692979190]
 target_position = Vector2(8, 0)
+
+[connection signal="area_entered" from="killzone" to="." method="_on_killzone_area_entered"]
