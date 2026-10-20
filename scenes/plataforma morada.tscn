@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bfkwqro3gvq02"]
+
+[ext_resource type="Texture2D" uid="uid://crfutgneuup2p" path="res://assets/sprites/platformas prueba.png" id="1_wwoyv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mymv"]
+size = Vector2(33, 9)
+
+[node name="plataforma morada" type="AnimatableBody2D" unique_id=475748842]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1534297421]
+texture = ExtResource("1_wwoyv")
+region_enabled = true
+region_rect = Rect2(15.197845, 1.6228065, 33, 8.309475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=233515515]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_0mymv")
+one_way_collision = true

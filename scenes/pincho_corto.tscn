@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://67765mxe2q2f"]
+
+[ext_resource type="Texture2D" uid="uid://d4i5oxyuiwsa0" path="res://assets/sprites/pincho corto.png" id="1_sgq1g"]
+[ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://killzone.tscn" id="3_vx88h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcqrs"]
+atlas = ExtResource("1_sgq1g")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jyaov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcqrs")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sub6"]
+size = Vector2(14, 15)
+
+[node name="pincho_corto" type="Node2D" unique_id=570738720]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=144166996]
+sprite_frames = SubResource("SpriteFrames_jyaov")
+
+[node name="killzone" parent="." unique_id=278305274 instance=ExtResource("3_vx88h")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=1396967519]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_2sub6")
+
+[connection signal="area_entered" from="killzone" to="." method="_on_killzone_area_entered"]

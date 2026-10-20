@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://bqpqo4c4cm67o"]
+
+[ext_resource type="Script" uid="uid://cp7wbhwghxcma" path="res://scripts/volador.gd" id="1_8sdph"]
+[ext_resource type="Texture2D" uid="uid://bc252hyfyqmvm" path="res://assets/sprites/enemigo volador-Sheet.png" id="2_8sdph"]
+[ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://killzone.tscn" id="3_m8gro"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8s3e"]
+atlas = ExtResource("2_8sdph")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8gro"]
+atlas = ExtResource("2_8sdph")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6wgr"]
+atlas = ExtResource("2_8sdph")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dujqv"]
+atlas = ExtResource("2_8sdph")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p0v5"]
+atlas = ExtResource("2_8sdph")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jyaov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8s3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8gro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6wgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dujqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p0v5")
+}],
+"loop": 2,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sdph"]
+size = Vector2(38, 21)
+
+[node name="volador" type="Node2D" unique_id=570738720]
+script = ExtResource("1_8sdph")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=144166996]
+sprite_frames = SubResource("SpriteFrames_jyaov")
+frame_progress = 0.30204588
+
+[node name="killzone" parent="." unique_id=278305274 instance=ExtResource("3_m8gro")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=1396967519]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_8sdph")
+
+[node name="RayCastDown" type="RayCast2D" parent="killzone" unique_id=764185299]
+scale = Vector2(0.5, 0.5)
+
+[node name="RayCastUp" type="RayCast2D" parent="killzone" unique_id=816054330]
+position = Vector2(0, -1)
+target_position = Vector2(0, -48)
+
+[connection signal="area_entered" from="killzone" to="." method="_on_killzone_area_entered"]
