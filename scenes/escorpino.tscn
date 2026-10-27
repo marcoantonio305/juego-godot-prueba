@@ -3,10 +3,43 @@
 [ext_resource type="Script" uid="uid://fboj04o7q4c" path="res://scripts/escorpino.gd" id="1_2sub6"]
 [ext_resource type="Texture2D" uid="uid://tv84ksavchki" path="res://assets/sprites/enemigo prueba.png" id="1_cti37"]
 [ext_resource type="PackedScene" uid="uid://dvcxgccbxik14" path="res://killzone.tscn" id="2_2sub6"]
+[ext_resource type="Texture2D" uid="uid://ddha2ip62keuw" path="res://assets/sprites/defeat-sprite-Sheet.png" id="3_khxwi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pougv"]
 atlas = ExtResource("1_cti37")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc7s2"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guqoy"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snopu"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etx55"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sucrs"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfbbk"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvrwa"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ff718"]
+atlas = ExtResource("3_khxwi")
+region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jyaov"]
 animations = [{
@@ -17,6 +50,35 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc7s2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guqoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snopu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etx55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sucrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfbbk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvrwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ff718")
+}],
+"loop": 0,
+"name": &"defeat",
+"speed": 40.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyaov"]
@@ -27,6 +89,10 @@ script = ExtResource("1_2sub6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=144166996]
 sprite_frames = SubResource("SpriteFrames_jyaov")
+animation = &"defeat"
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
 
 [node name="killzone" parent="." unique_id=278305274 instance=ExtResource("2_2sub6")]
 

@@ -10,5 +10,7 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemigos") or area.get_parent().is_in_group("enemigos"):
-		area.get_parent().queue_free() #Borra el enemigo
+		var enemigo = area.get_parent()
+		if enemigo.has_method("desaparecer"):
+			enemigo.desaparecer()
 		queue_free() # La bala desaparece cuando choca con el enemigo
