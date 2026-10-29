@@ -4,12 +4,11 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
-	#print("You ded")
-	Engine.time_scale = 0.5
-	body.get_node("CollisionShape2D").queue_free()
-	timer.start()
+	if body is Personaje:
+		if body.has_method("defeat"):
+			body.defeat()
 
 
-func _on_timer_timeout() -> void:
-	Engine.time_scale = 1.0
-	get_tree().reload_current_scene()
+#func _on_timer_timeout() -> void:
+#	Engine.time_scale = 1.0
+#	get_tree().reload_current_scene()

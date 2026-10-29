@@ -5,6 +5,9 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -320.0
+@onready var sfx_defeat: AudioStreamPlayer = $sfx_defeat
+@onready var sfx_jump: AudioStreamPlayer = $sfx_jump
+
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -44,6 +47,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		sfx_jump.play()
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -73,3 +77,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	move_and_slide()
+
+# Sonido de derrota
+func defeat()-> void:
+	#Evita que se ejecute varias veces si choca con varias cosas a la vez
+	if not has_node("CollisionShape2D"):
+		return
+	sfx_defeat.play()
+	#Elimina colisión del personaje, haciendo que caiga
+	$CollisionShape2D.queue_free()
+	#Ralentiza el tiempo para el efecto de animacion de muerte
+	Engine.time_scale = 0.5
+	#Mismo tiempo de caida en cualquier muerte
+	await get_tree().create_timer(1.2, true, false, true).timeout
+	#Restaurar el tiempo y reiniciar el juego
+	Engine.time_scale = 1.0
+	get_tree().reload_current_scene()
