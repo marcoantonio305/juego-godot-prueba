@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://x3pcv2ec2kaa"]
 
-[ext_resource type="Script" uid="uid://c862tkygfjgnv" path="res://scenes/bala_enemiga.gd" id="1_e5uga"]
+[ext_resource type="Script" uid="uid://c862tkygfjgnv" path="res://scripts/bala_enemiga.gd" id="1_e5uga"]
 [ext_resource type="Texture2D" uid="uid://bd2qpg6epvwpr" path="res://assets/sprites/bala enemiga.png" id="2_mmh7s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0mymv"]
@@ -8,8 +8,8 @@ radius = 8.0
 
 [node name="bala enemiga" type="Area2D" unique_id=796277530]
 z_index = 1
+collision_mask = 2
 script = ExtResource("1_e5uga")
-speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=551071240]
 texture = ExtResource("2_mmh7s")
@@ -18,3 +18,4 @@ texture = ExtResource("2_mmh7s")
 shape = SubResource("CircleShape2D_0mymv")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

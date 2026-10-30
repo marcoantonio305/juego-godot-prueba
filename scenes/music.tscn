@@ -2,6 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://b0rcdb5il3nde" path="res://assets/music/01-Press-Play.mp3" id="1_05ggv"]
 
-[node name="music" type="AudioStreamPlayer2D" unique_id=1919033002]
+[node name="music" type="AudioStreamPlayer" unique_id=12663187]
 stream = ExtResource("1_05ggv")
 autoplay = true
+bus = &"music"
