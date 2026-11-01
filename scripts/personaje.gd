@@ -7,6 +7,8 @@ const SPEED = 150.0
 const JUMP_VELOCITY = -320.0
 @onready var sfx_defeat: AudioStreamPlayer = $sfx_defeat
 @onready var sfx_jump: AudioStreamPlayer = $sfx_jump
+@onready var sfx_shoot: AudioStreamPlayer = $sfx_shoot
+
 
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -31,6 +33,7 @@ func _physics_process(delta: float) -> void:
 		# Reinicia el cooldow. Solo se puede disparar una bala cada 3 segundos
 		shoot_cooldown = 0.75
 		var bullet_temp = bullet.instantiate()
+		sfx_shoot.play()
 		# Asignar la dirección de la bala según donde mira el personaje
 		if animated_sprite_2d.flip_h:
 			bullet_temp.direction = -1

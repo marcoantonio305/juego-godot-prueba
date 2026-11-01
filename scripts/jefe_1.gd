@@ -18,6 +18,8 @@ var estado_actual: Estado = Estado. IDLE
 var direccion_x: float = 0.0
 var objetivo_x: float = 0.0
 var jugador: Personaje = null
+var preparando_dash = false
+
 
 func _ready()-> void:
 	# Buscar al jugador mediante su tipo "Personaje" o por el grupo "jugador"
@@ -37,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	#Se queda en el suelo
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
+	
 	match estado_actual:
 		Estado.IDLE:
 			velocity.x = move_toward(velocity.x, 0, velocidad_normal)
@@ -60,12 +62,16 @@ func _physics_process(delta: float) -> void:
 				estado_actual = Estado.IDLE
 		
 		Estado.DASH:
-			velocity.x = direccion_x * velocidad_dash
-			animated_sprite_2d.play("roll")
+			if preparando_dash:
+				velocity.x = 0
+				animated_sprite_2d.play("before_dash")
+			else:
+				velocity.x = direccion_x * velocidad_dash
+				animated_sprite_2d.play("dash")
 		
 		Estado.DISPARAR:
+			animated_sprite_2d.play("shoot")
 			velocity.x = 0
-			animated_sprite_2d.play("hit")
 	
 	_actualizar_orientacion_sprite()
 	move_and_slide()
@@ -118,16 +124,27 @@ func _mover_a_zona_escenario()->void:
 	
 func _iniciar_dash()->void:
 	estado_actual = Estado.DASH
+	preparando_dash = true
 	if is_instance_valid(jugador):
 		direccion_x = sign(jugador.global_position.x - global_position.x)
+		if direccion_x == 0:
+			direccion_x = -1.0 if animated_sprite_2d.flip_h else 1.0
+	#Muestra before dash, estando quieto durante 0.5s
+	await get_tree().create_timer(0.6).timeout
+	preparando_dash = false
 	await get_tree().create_timer(0.4).timeout
 	if estado_actual == Estado.DASH:
 		estado_actual = Estado.IDLE
 
 func _disparar()->void:
 	estado_actual = Estado.DISPARAR
+	velocity.x = 0
+	animated_sprite_2d.play("shoot")
 	
-	if bala_enemiga and is_instance_valid(jugador):
+	#Espera 0.5 segundo antes de dispara para que el jugador pues esquivarlo
+	await get_tree().create_timer(0.5).timeout
+	
+	if estado_actual == Estado.DISPARAR and bala_enemiga and is_instance_valid(jugador):
 		var proyectil = bala_enemiga.instantiate()
 		
 		if jugador.global_position.x < global_position.x:
@@ -158,10 +175,28 @@ func _on_area_contacto_body_entered(body: Node2D)-> void:
 			body.defeat()
 
 func recibir_dano(cantidad: int=1)->void:
+	#Si ya está en el proceso de morir, ignora cualquier bala adicional
+	if vida <= 0:
+		return
 	print("El jefe recibió daño. Vida restante: ", vida)
 	vida -= cantidad
-	await get_tree().create_timer(0.08).timeout
+	
 	
 	if vida <= 0:
+		# Desactivar decisiones y físicas para bloquear actualizaciones de animación
+		set_physics_process(false)
+		timer_decisiones.stop()
+		#Desactiva movimiento y colisión para que no reciba más balas ni empuje al jugador al morir
+		if has_node("CollisionShape2D"):
+			$CollisionShape2D.set_deferred("disabled", true)
+		#Restaura el color normal y reproduce la animacion de muerte
+		modulate = Color.WHITE
+		animated_sprite_2d.play("death")
+		#Esperar que finalice la animación de muerte antes de eliminar el nodo
+		await get_tree().create_timer(3.0).timeout
 		queue_free()
-		
+	else:
+		#Parpadeo rojo visual rápido de 0.25 segundos sin alterar alterar animaciones
+		modulate = Color.RED
+		await get_tree().create_timer(0.25).timeout
+		modulate = Color.WHITE
