@@ -77,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	move_and_slide()
+	_comprobar_choque_con_jefe()
 
 # Sonido de derrota
 func defeat()-> void:
@@ -93,3 +94,10 @@ func defeat()-> void:
 	#Restaurar el tiempo y reiniciar el juego
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
+
+func _comprobar_choque_con_jefe()->void:
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider and collider.is_in_group("jefes"):
+			defeat()

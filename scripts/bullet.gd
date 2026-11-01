@@ -25,3 +25,9 @@ func _on_area_entered(area: Area2D) -> void:
 			enemy_defeat_sfx.play(0.3)
 			enemigo.desaparecer()
 		queue_free() # La bala desaparece cuando choca con el enemigo
+
+func _on_body_entered(body:Node2D)->void:
+	if body.is_in_group("jefes") or body.get_parent().is_in_group("jefes"):
+		if body.has_method("recibir_dano"):
+			body.recibir_dano(1)
+		queue_free()
